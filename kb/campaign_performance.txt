@@ -1,0 +1,24 @@
+CAMPAIGN PERFORMANCE ISSUES
+
+Ads Not Delivering:
+Possible causes:
+- Insufficient budget
+- Incorrect targeting
+- Disapproved creatives
+
+Low Impressions:
+- Narrow audience targeting
+- Low bid amount
+- Campaign schedule restrictions
+
+Budget Exhausted:
+Campaign stops when daily or total budget is reached.
+Increase budget from dashboard to resume.
+
+Disapproved Ads:
+Ads may be rejected due to:
+- Policy violations
+- Prohibited content
+- Incorrect formatting
+
+Review policy guidelines before resubmission.

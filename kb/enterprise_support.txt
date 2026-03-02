@@ -1,0 +1,18 @@
+ENTERPRISE SUPPORT INFORMATION
+
+Dedicated Account Manager:
+Enterprise customers are assigned a dedicated manager.
+
+Priority Support:
+Enterprise tickets handled before other tiers.
+
+Custom SLA:
+Enterprise contracts may include:
+- 99.99% uptime
+- Financial penalties for downtime
+
+Quarterly Review:
+Performance review conducted every quarter.
+
+Direct Contact Channel:
+Enterprise customers receive priority hotline number.

@@ -1,0 +1,27 @@
+ACCOUNT & AUTHENTICATION SUPPORT
+
+Password Reset:
+Users can reset password using "Forgot Password" link.
+Password reset link expires in 15 minutes.
+
+Two-Factor Authentication (2FA):
+If user cannot access 2FA:
+- Use backup codes.
+- Contact support for identity verification.
+
+Account Suspension:
+Accounts may be suspended due to:
+- Payment failure
+- Policy violation
+- Suspicious activity
+
+Resolution:
+- Clear pending invoices.
+- Submit verification documents.
+- Contact support for review.
+
+Login Issues:
+Ensure:
+- Correct email address
+- Browser cookies enabled
+- No VPN blocking authentication

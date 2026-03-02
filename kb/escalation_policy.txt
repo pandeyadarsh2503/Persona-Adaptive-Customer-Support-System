@@ -1,0 +1,29 @@
+ESCALATION POLICY
+
+Escalation Conditions:
+Cases escalated to human agent if:
+- Refund demand
+- Legal threat
+- Enterprise customer complaint
+- Repeated unresolved issue
+- Explicit request for human support
+
+Priority Classification:
+
+Low:
+General queries, informational requests.
+
+Medium:
+Technical issues affecting limited functionality.
+
+High:
+Repeated failures, billing disputes, enterprise impact.
+
+Critical:
+System-wide outage, legal threat, enterprise SLA breach.
+
+Response Time Targets:
+Low: 24 hours
+Medium: 8 hours
+High: 2 hours
+Critical: Immediate

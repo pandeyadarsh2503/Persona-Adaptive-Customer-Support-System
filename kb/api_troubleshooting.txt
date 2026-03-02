@@ -1,0 +1,34 @@
+API TROUBLESHOOTING GUIDE
+
+HTTP 500 Error:
+A 500 error indicates a server-side exception.
+Common causes:
+- Backend service crash
+- Database connectivity issues
+- Misconfigured deployment
+- Invalid request payload
+
+Resolution Steps:
+1. Check API logs for stack trace.
+2. Validate authentication token.
+3. Verify request format matches API documentation.
+4. Confirm no recent deployment caused regression.
+5. Retry request after 2–3 minutes.
+
+HTTP 401 Unauthorized:
+Occurs when API key or access token is invalid or expired.
+Resolution:
+- Regenerate API key from dashboard.
+- Ensure Authorization header format is correct.
+
+HTTP 429 Rate Limit Exceeded:
+API rate limit: 1000 requests per minute.
+If exceeded:
+- Implement exponential backoff.
+- Reduce request frequency.
+
+Timeout Errors:
+If API response time exceeds 30 seconds:
+- Check network latency.
+- Confirm server status on status page.
+- Retry request.

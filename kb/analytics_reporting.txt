@@ -1,0 +1,24 @@
+ANALYTICS & REPORTING
+
+Real-Time Dashboard:
+Campaign metrics update every 5 minutes.
+
+Metrics Available:
+- Impressions
+- Clicks
+- CTR
+- Conversion rate
+- Spend
+
+Data Delay:
+Analytics data may experience 2–5 minute delay.
+
+Export Reports:
+Users can export reports in:
+- CSV
+- PDF
+- Excel format
+
+API Reporting:
+Reporting endpoints available via REST API.
+Rate limit: 500 requests per minute.

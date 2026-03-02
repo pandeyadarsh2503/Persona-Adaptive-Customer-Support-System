@@ -1,0 +1,25 @@
+SERVICE LEVEL AGREEMENT (SLA)
+
+Uptime Guarantee:
+AdSpark guarantees 99.9% uptime per calendar month.
+
+Downtime Definition:
+Downtime refers to:
+- API unavailability
+- Dashboard inaccessibility
+- Campaign serving failure
+
+Compensation Policy:
+If uptime falls below 99.9%:
+- Eligible for service credit
+- Credit calculated as % of monthly subscription fee
+
+Scheduled Maintenance:
+Scheduled maintenance windows are:
+- Sundays 2 AM – 4 AM UTC
+- Announced 48 hours in advance
+
+Major Incidents:
+For critical outages:
+- Incident updates provided every 30 minutes
+- Root cause analysis shared within 72 hours

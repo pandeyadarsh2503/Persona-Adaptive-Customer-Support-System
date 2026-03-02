@@ -1,0 +1,33 @@
+BILLING & PRICING INFORMATION
+
+Subscription Plans:
+
+Starter Plan:
+- $49/month
+- Up to 5 campaigns
+- Email support
+
+Growth Plan:
+- $149/month
+- Up to 25 campaigns
+- Priority support
+
+Enterprise Plan:
+- Custom pricing
+- Unlimited campaigns
+- Dedicated account manager
+- SLA-backed uptime
+
+Refund Policy:
+- Monthly subscriptions refundable within 7 days of billing.
+- No refund for usage beyond 7 days.
+- Enterprise refunds subject to contract.
+
+Invoice Generation:
+Invoices are automatically generated on billing date.
+Download invoices from Billing Dashboard.
+
+Payment Failure:
+After 3 failed attempts:
+- Account enters grace period (7 days).
+- Services paused after grace period.
