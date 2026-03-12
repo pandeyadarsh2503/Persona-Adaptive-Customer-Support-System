@@ -81,7 +81,7 @@ Three persona profiles are embedded at startup using `sentence-transformers/all-
 - 8 KB `.txt` files → chunked (400 words, 50 overlap) → embedded → stored in FAISS
 - Top 3 relevant chunks retrieved per query → injected into the LLM prompt
 
-### LLM Response (gemini-1.5-flash)
+### LLM Response (gemini-2.0-flash)
 - Temperature: 0.3 for factual, grounded answers
 - Strict KB-grounding: never fabricates facts outside the KB
 
@@ -103,29 +103,6 @@ Three persona profiles are embedded at startup using `sentence-transformers/all-
 |---|---|---|
 | Embeddings | `sentence-transformers` (all-MiniLM-L6-v2) | Free (local) |
 | Vector DB | FAISS (IndexFlatIP) | Free (in-process) |
-| LLM | Gemini `gemini-1.5-flash` | Free tier |
+| LLM | Gemini `gemini-2.0-flash` | Free tier |
 
 ---
-
-## 🔌 Optional FastAPI Backend
-
-If you prefer API access instead of the Streamlit UI:
-
-```powershell
-uvicorn main:app --reload --port 8000
-```
-
-**Endpoint:** `POST http://localhost:8000/chat`
-
-```json
-// Request
-{"session_id": "user_123", "message": "How do I reset my password?"}
-
-// Resolved response
-{"status": "resolved", "persona": "Frustrated User", "confidence": 0.72, "response": "..."}
-
-// Escalated response
-{"status": "escalated", "persona": "Business Executive", "priority": "Critical",
- "issue_type": "Legal threat", "urgency": "Immediate", "recommended_team": "Legal & Compliance Team",
- "conversation_summary": "...", "confidence": 0.88}
-```
