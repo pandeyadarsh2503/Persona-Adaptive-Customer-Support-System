@@ -1,24 +1,150 @@
-ANALYTICS & REPORTING
+ANALYTICS & REPORTING GUIDE — Campaign Manager Platform
 
-Real-Time Dashboard:
-Campaign metrics update every 5 minutes.
+=======================================================
+SECTION 1: REAL-TIME DASHBOARD
+=======================================================
 
-Metrics Available:
-- Impressions
-- Clicks
-- CTR
-- Conversion rate
-- Spend
+Dashboard Overview:
+- The Campaign Manager analytics dashboard provides near real-time performance data
+- Metrics refresh every 5 minutes during business hours (8 AM – 10 PM local time)
+- During off-peak hours (10 PM – 8 AM), refresh interval extends to 15 minutes
 
-Data Delay:
-Analytics data may experience 2–5 minute delay.
+Key Metrics Available in Dashboard:
+- Impressions: Total number of times your ads were displayed
+- Clicks: Total clicks on your ads
+- CTR (Click-Through Rate): Clicks / Impressions × 100 (expressed as percentage)
+- CPC (Cost Per Click): Total spend / Total clicks
+- CPM (Cost Per Thousand Impressions): Total spend / (Impressions / 1000)
+- Conversions: Actions completed by users after clicking your ad (purchase, sign-up, etc.)
+- CPA (Cost Per Acquisition): Total spend / Total conversions
+- ROAS (Return on Ad Spend): Revenue attributed / Total spend
+- Reach: Unique users who saw your ad (deduplicated)
+- Frequency: Average number of times each unique user saw your ad
+- Video Completion Rate: % of video ads watched to completion
+- View Rate: % of video ad impressions that resulted in views (>30 seconds or full video)
 
-Export Reports:
-Users can export reports in:
-- CSV
-- PDF
-- Excel format
+Filtering and Segmentation:
+- Filter by: Campaign, Ad Group, Creative, Date Range, Device Type, Geography, Audience Segment
+- Compare date ranges: Current period vs. previous period (week-over-week, month-over-month)
+- Breakdown by: Hour, Day, Week, Month
+- Cross-device reporting: View performance across Desktop, Mobile, Tablet
+- Geographic view: Country, State/Region, City, DMA (US only)
 
-API Reporting:
-Reporting endpoints available via REST API.
-Rate limit: 500 requests per minute.
+=======================================================
+SECTION 2: DATA DELAYS AND KNOWN LATENCY
+=======================================================
+
+Understanding Data Latency:
+- Click data is near real-time (1–2 minute delay in most cases)
+- Impression data: 2–5 minute delay
+- Conversion data: 15–30 minute delay (requires pixel fire + server-side processing)
+- View-through conversions: Can take up to 1 hour to appear in dashboard
+- Revenue/ROAS metrics: Up to 2 hours for cross-device attribution finalisation
+- Audience data refresh: Daily (updated overnight, available by 6 AM local time)
+
+Known Data Discrepancies:
+- Dashboard numbers vs. third-party tools (Google Analytics, etc.): Expected 10–15% variance due to:
+  - Different attribution models (last-click vs. data-driven)
+  - Ad blockers excluding some impressions from third-party tracking
+  - Cross-device identity resolution differences
+  - Bot filtering: We filter invalid traffic (IVT); some third-party tools may not
+
+If data appears to be missing or significantly off:
+1. Confirm your tracking pixel is installed correctly (use Tag Assistant)
+2. Check if there was a platform incident during the reporting period (status.campaignmanager.io)
+3. Verify the date range includes the correct timezone (UTC vs. local time)
+4. Clear browser cache before checking dashboard
+5. If discrepancy persists >24 hours after ruling out above, contact support with specific date ranges and metrics
+
+=======================================================
+SECTION 3: CUSTOM REPORTS
+=======================================================
+
+Building Custom Reports:
+1. Go to Analytics > Reports > Create New Report
+2. Select report type: Campaign Summary, Ad Group Performance, Creative Performance, Audience Insights, Geographic Report
+3. Choose metrics to include (up to 30 metrics per report)
+4. Apply filters and date range
+5. Choose visualisation: Table, Line Chart, Bar Chart, Pie Chart
+6. Save and name the report for future access
+
+Scheduling Automated Reports:
+1. After saving a report, click "Schedule"
+2. Set frequency: Daily, Weekly, Monthly
+3. Choose delivery: Email (up to 10 recipients), Slack notification, S3 bucket export
+4. Format: PDF, CSV, Excel (.xlsx)
+5. Automated reports run at 6 AM in your account's configured timezone
+
+Report Permissions:
+- Admin/Owner: Can view and create all reports
+- Manager: Can create reports for their assigned campaigns only
+- Analyst: Can view reports but cannot create or modify
+- Custom roles: Set per-permission in Settings > Roles
+
+=======================================================
+SECTION 4: DATA EXPORT
+=======================================================
+
+Export Formats and Options:
+- CSV: Raw data export, ideal for Excel/Sheets analysis or data warehousing
+- PDF: Formatted report, ideal for stakeholder sharing
+- Excel (.xlsx): Pivot-table-ready format with multiple sheets per campaign
+- JSON/XML: Available via API export for programmatic consumption
+
+Exporting Data:
+1. From any report view, click "Export" in the top right
+2. Choose format and click "Download" for immediate download (up to 500,000 rows)
+3. For large datasets (>500,000 rows): Use "Scheduled Export" to receive file via email when ready
+4. API exports: POST /v2/reports/export with parameters; asynchronous job returns download URL
+
+Data Retention for Exports:
+- Dashboard data available for the last 24 months
+- Raw impression-level data: Available for trailing 6 months via API
+- Aggregated performance data: 36 months
+- Financial/billing data: 7 years (for compliance)
+
+=======================================================
+SECTION 5: API REPORTING ENDPOINTS
+=======================================================
+
+Reporting API Base URL: https://api.campaignmanager.io/v2/analytics/
+
+Key Endpoints:
+- GET /v2/analytics/campaign-summary — Campaign-level performance metrics
+- GET /v2/analytics/adgroup — Ad group level metrics
+- GET /v2/analytics/creative — Creative-level performance with A/B test data
+- GET /v2/analytics/audience — Audience insights and segment performance
+- GET /v2/analytics/geographic — Geographic performance breakdown
+- POST /v2/reports/export — Async export job creation
+- GET /v2/jobs/{job_id} — Poll async job status
+
+Reporting API Rate Limits:
+- Starter Plan: 100 requests per minute
+- Growth Plan: 500 requests per minute
+- Enterprise Plan: Custom (typically 2,000–5,000 RPM)
+
+Pagination:
+- All list endpoints support pagination: ?page=1&per_page=100 (max 1,000 rows per page)
+- Use cursor-based pagination for large datasets: ?cursor=<next_cursor_value>
+
+Attribution Models Available via API:
+- last_click: Default; credit goes to last ad clicked before conversion
+- first_click: Credit to first ad in the customer journey
+- linear: Equally distributed across all touchpoints
+- time_decay: More credit to recent touchpoints
+- data_driven: ML-based model (requires 300+ conversions/month to enable)
+
+=======================================================
+SECTION 6: ATTRIBUTION & CONVERSION WINDOWS
+=======================================================
+
+Default Attribution Settings:
+- Click-through conversion window: 30 days (can be adjusted: 1, 7, 14, 30, 60 days)
+- View-through conversion window: 1 day (can be adjusted: 1, 7, 14 days)
+- Cross-device attribution: Enabled by default (uses probabilistic matching for non-logged-in users)
+
+Adjusting Attribution Windows:
+1. Go to Settings > Conversion Tracking > Attribution Settings
+2. Select the conversion event to modify
+3. Change click-through and view-through windows independently
+4. Allow 48 hours for historical data to be recalculated with new settings

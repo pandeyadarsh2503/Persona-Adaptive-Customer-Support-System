@@ -1,18 +1,148 @@
-ENTERPRISE SUPPORT INFORMATION
+ENTERPRISE SUPPORT GUIDE — Campaign Manager Platform
 
-Dedicated Account Manager:
-Enterprise customers are assigned a dedicated manager.
+=======================================================
+SECTION 1: ENTERPRISE PLAN OVERVIEW
+=======================================================
 
-Priority Support:
-Enterprise tickets handled before other tiers.
+Enterprise Plan Benefits:
+- Unlimited campaigns, ad groups, and creatives
+- Custom impression volume negotiated in contract
+- Unlimited team members with advanced role management
+- Dedicated Technical Account Manager (TAM) and Customer Success Manager (CSM)
+- SLA-backed uptime: 99.9% (Standard) or 99.99% (Premium)
+- 24/7 priority support with defined response time commitments
+- Quarterly Business Reviews (QBRs) with senior leadership
+- Early access to beta features
+- Custom integrations and API rate limits
+- White-label reporting options
+- Single Sign-On (SAML 2.0/LDAP) support
+- Advanced brand safety and fraud detection tools
+- Custom data retention and data residency options (EU, US, APAC)
 
-Custom SLA:
-Enterprise contracts may include:
-- 99.99% uptime
-- Financial penalties for downtime
+Enterprise Pricing:
+- Prices are custom-negotiated based on: ad spend volume, number of users, integrations required, SLA tier
+- Minimum annual contract value: $24,000/year
+- Volume discounts available for multi-year commitments (15% for 2 years, 25% for 3 years)
+- Contact sales@campaignmanager.io or your existing account manager for enterprise pricing
 
-Quarterly Review:
-Performance review conducted every quarter.
+=======================================================
+SECTION 2: DEDICATED ACCOUNT MANAGEMENT
+=======================================================
 
-Direct Contact Channel:
-Enterprise customers receive priority hotline number.
+Technical Account Manager (TAM):
+- Your TAM is your primary technical point of contact
+- Responsibilities: Onboarding, integration setup, API configuration, technical issue resolution
+- TAM holds a dedicated 90-minute weekly check-in call (schedule adjustable by mutual agreement)
+- Reachable via: Direct email, dedicated Slack channel, phone during business hours
+- For Critical issues outside business hours: On-call TAM available via the Priority Hotline
+
+Customer Success Manager (CSM):
+- Your CSM is your strategic business point of contact
+- Responsibilities: Account health monitoring, QBR facilitation, renewal negotiations, feature roadmap discussions
+- CSM proactively monitors your campaign performance and alerts to optimisation opportunities
+- Monthly business health report sent automatically on the first Monday of each month
+
+Getting your TAM and CSM assigned:
+- New Enterprise customers: TAM and CSM assigned within 2 business days of contract signing
+- TAM introduction call scheduled within 1 week of onboarding kickoff
+- Change requests for TAM/CSM: Contact enterprise@campaignmanager.io
+
+Priority Support Channel:
+- Enterprise customers receive a dedicated priority email queue: enterprise-support@campaignmanager.io
+- Dedicated Slack workspace channel: #[your-company]-support (provisioned during onboarding)
+- Priority Hotline (24/7 for Critical issues): +1-888-CM-PRIORITY (number provided in onboarding documents)
+
+=======================================================
+SECTION 3: ENTERPRISE SLA DETAILS
+=======================================================
+
+Standard Enterprise SLA (99.9% Uptime):
+- Maximum allowed downtime: 43.8 minutes per calendar month
+- First Response Time: Critical = 15 min, High = 2 hr, Medium = 8 hr, Low = 24 hr
+- Resolution Time Target: Critical = 4 hr, High = 24 hr, Medium = 72 hr, Low = 5 business days
+
+Premium Enterprise SLA (99.99% Uptime):
+- Maximum allowed downtime: 4.38 minutes per calendar month
+- First Response Time: Critical = 5 min, High = 1 hr, Medium = 4 hr, Low = 12 hr
+- Resolution Time Target: Critical = 2 hr, High = 8 hr, Medium = 48 hr, Low = 3 business days
+
+SLA Credits for Enterprise Customers:
+- 99.5% – 99.9% uptime: 10% credit of monthly fee
+- 99.0% – 99.5% uptime: 25% credit
+- Below 99.0% uptime: 50% credit or financial penalty per contract terms
+
+Financial Downtime Penalties (Premium SLA with Penalty Clause):
+- Applicable when: Single incident >4 continuous hours OR cumulative >6 hours in a month
+- Penalty = 1% of monthly contract value per hour of excess downtime, up to 100% of monthly fee
+- Penalty payments issued within 30 days of verified claim approval
+
+=======================================================
+SECTION 4: QUARTERLY BUSINESS REVIEWS (QBRs)
+=======================================================
+
+QBR Schedule:
+- Conducted every quarter (January, April, July, October)
+- Standard enterprise: 90-minute virtual QBR
+- Premium enterprise: In-person QBR option available at our offices or customer location
+
+QBR Agenda (Typical):
+1. Performance Review: Campaign metrics, ROI analysis, quarter-over-quarter trends
+2. Platform Reliability: Uptime report, incident recap, any open SLA credit claims
+3. Feature Roadmap: Upcoming platform features, beta program participation opportunities
+4. Account Health: Billing review, user adoption, support ticket analysis
+5. Strategic Planning: Goals for next quarter, optimisation recommendations
+6. Action Items: Agreed timeline and owner for follow-ups
+
+Requesting a QBR Reschedule:
+- Minimum 5 business days notice required
+- Contact your CSM directly via email or Slack
+
+=======================================================
+SECTION 5: CUSTOM INTEGRATIONS (ENTERPRISE)
+=======================================================
+
+Available Integrations:
+- CRM Systems: Salesforce, HubSpot, Microsoft Dynamics 365
+- DSPs (Demand-Side Platforms): Trade Desk, DV360, AppNexus
+- DMPs (Data Management Platforms): Oracle Audience Data, Salesforce DMP
+- BI Tools: Tableau, Power BI, Looker (native connector + API)
+- Marketing Automation: Marketo, Pardot, Eloqua
+- Data Warehouses: Snowflake, BigQuery, Amazon Redshift (via data connector)
+- Collaboration: Slack, Microsoft Teams (alerts and reporting notifications)
+
+Custom Integration Setup:
+1. Identify integration requirement during onboarding or in a dedicated requirements call with TAM
+2. TAM scopes the integration (typically 2–4 weeks for standard integrations)
+3. TAM provides integration documentation and API keys with appropriate scopes
+4. Integration testing in sandbox environment (sandbox available to all Enterprise accounts)
+5. Production go-live with TAM monitoring for first 7 days
+
+Custom API Rate Limits:
+- Standard Enterprise: Default 2,000 RPM; can increase to 5,000 RPM via request
+- Premium Enterprise: Starts at 5,000 RPM; custom ceiling available on request
+- Burst capacity: Up to 3x standard rate for 60-second bursts (traffic spikes)
+- Rate limit increase requests processed within 2 business days
+
+=======================================================
+SECTION 6: DATA & SECURITY (ENTERPRISE)
+=======================================================
+
+Data Residency Options:
+- US Region: AWS us-east-1 (Virginia) — default for US-based contracts
+- EU Region: AWS eu-west-1 (Ireland) — required for GDPR-compliant contracts
+- APAC Region: AWS ap-southeast-1 (Singapore)
+- Cross-region replication can be disabled for data sovereignty requirements
+
+Security Features (Enterprise):
+- SAML 2.0 Single Sign-On with your IdP (Okta, Azure AD, Ping Identity, etc.)
+- Advanced IP allowlisting: Restrict API and dashboard access to approved IP ranges
+- Audit logs: Full user activity log retained for 12 months, exportable
+- Custom data retention policy: Default 24 months; can be extended up to 7 years
+- DPA (Data Processing Agreement): Available at legal@campaignmanager.io
+- Penetration test results: Available under NDA for security teams
+
+GDPR / CCPA Compliance:
+- Data Processing Agreement (DPA) signed for all EU Enterprise customers
+- Right to Erasure requests: Submit via privacy@campaignmanager.io; processed within 30 days
+- Data portability: Full data export in machine-readable format available within 5 business days
+- Sub-processor list: Available at campaignmanager.io/legal/sub-processors

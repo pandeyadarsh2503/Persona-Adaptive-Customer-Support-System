@@ -450,26 +450,83 @@ with st.form("chat_form", clear_on_submit=True):
         st.markdown("<div style='height:14px'></div>", unsafe_allow_html=True)
         submitted = st.form_submit_button("Send ➤", use_container_width=True)
 
-# ── Quick prompts ────────────────────────────────────────────────────────────
-st.markdown("<div style='color:rgba(255,255,255,0.35);font-size:0.75rem;margin:0.4rem 0 0.3rem;'>⚡ Quick scenarios:</div>",
-            unsafe_allow_html=True)
-
-quick_cols = st.columns(4)
-quick_prompts = [
-    ("🛠️ API Error",    "My API keeps returning 429 rate limit errors. How do I implement exponential backoff?"),
-    ("😤 Frustrated",   "This is absolutely ridiculous! My ads have been down for 3 hours and nobody is helping me!"),
-    ("💼 Executive",    "What is the SLA uptime guarantee and what service credits apply if it is breached?"),
-    ("🚨 Escalate",     "I want a full refund immediately. My lawyer will contact you if this is not resolved today!"),
+# ── Frequently Asked Questions (KB-based) ───────────────────────────────────
+FAQ_ITEMS = [
+    # Account & Auth
+    ("🔐 Account", "How do I reset my password?"),
+    ("🔐 Account", "My account is suspended — how do I reactivate it?"),
+    ("🔐 Account", "I can't access my 2FA device. What do I do?"),
+    ("🔐 Account", "How do I add a new team member and set their role?"),
+    ("🔐 Account", "Can I set up Single Sign-On (SSO) for my team?"),
+    # API & Technical
+    ("⚙️ API", "My API is returning HTTP 429 rate limit errors. How do I fix it?"),
+    ("⚙️ API", "I am getting a 401 Unauthorized error. How do I regenerate my API key?"),
+    ("⚙️ API", "What are the API rate limits for each subscription plan?"),
+    ("⚙️ API", "How do I set up and troubleshoot webhooks?"),
+    ("⚙️ API", "My API requests are timing out. What should I check?"),
+    # Billing
+    ("💳 Billing", "What are the subscription plans and pricing?"),
+    ("💳 Billing", "How do I download my invoice?"),
+    ("💳 Billing", "What is the refund policy for monthly and annual subscriptions?"),
+    ("💳 Billing", "My payment failed. What happens next?"),
+    ("💳 Billing", "How do I upgrade or downgrade my plan?"),
+    # Campaigns
+    ("📣 Campaigns", "My ads are not delivering. What should I check?"),
+    ("📣 Campaigns", "Why are my impressions suddenly very low?"),
+    ("📣 Campaigns", "My ad was disapproved. How do I fix and resubmit it?"),
+    ("📣 Campaigns", "How do I improve my campaign's click-through rate (CTR)?"),
+    ("📣 Campaigns", "How do I set up conversion tracking?"),
+    # SLA
+    ("📋 SLA", "What is the uptime guarantee for my plan?"),
+    ("📋 SLA", "How do I claim a service credit for downtime?"),
+    ("📋 SLA", "When are scheduled maintenance windows?"),
+    # Analytics
+    ("📊 Analytics", "Why is there a delay in my analytics data?"),
+    ("📊 Analytics", "How do I export my campaign reports to Excel or PDF?"),
+    ("📊 Analytics", "How do I set up automated report emails?"),
+    ("📊 Analytics", "What attribution models are available?"),
+    # Enterprise
+    ("🏢 Enterprise", "What is included in the Enterprise plan?"),
+    ("🏢 Enterprise", "How do I contact my dedicated account manager?"),
+    ("🏢 Enterprise", "What SLA does the Enterprise Premium plan provide?"),
+    ("🏢 Enterprise", "How do I integrate with Salesforce or Power BI?"),
 ]
-for col, (label, prompt) in zip(quick_cols, quick_prompts):
-    with col:
-        if st.button(label, use_container_width=True, key=f"quick_{label}"):
-            # Inject as if submitted
-            submitted = True
-            user_input = prompt
+
+# Group FAQs by category
+from collections import OrderedDict
+faq_by_category: dict = OrderedDict()
+for cat, q in FAQ_ITEMS:
+    faq_by_category.setdefault(cat, []).append(q)
+
+st.markdown(
+    "<div style='color:rgba(255,255,255,0.5);font-size:0.78rem;margin:0.6rem 0 0.4rem;"
+    "letter-spacing:0.06em;text-transform:uppercase;font-weight:600;'>💡 Frequently Asked Questions</div>",
+    unsafe_allow_html=True
+)
+
+faq_col1, faq_col2 = st.columns(2)
+faq_submitted = False
+faq_question = ""
+
+cats = list(faq_by_category.keys())
+half = (len(cats) + 1) // 2
+
+for i, (cat, questions) in enumerate(faq_by_category.items()):
+    target_col = faq_col1 if i < half else faq_col2
+    with target_col:
+        with st.expander(cat, expanded=False):
+            for q in questions:
+                if st.button(q, key=f"faq_{cat}_{q[:30]}", use_container_width=True):
+                    faq_submitted = True
+                    faq_question = q
 
 
-# ── Process submission ───────────────────────────────────────────────────────
+# ── Process submission (form OR FAQ click) ──────────────────────────────────
+# Merge FAQ click into submission
+if faq_submitted and faq_question:
+    submitted = True
+    user_input = faq_question
+
 if submitted and user_input and user_input.strip():
     message = user_input.strip()
 

@@ -1,29 +1,129 @@
-ESCALATION POLICY
+ESCALATION POLICY — Campaign Manager Support
 
-Escalation Conditions:
-Cases escalated to human agent if:
-- Refund demand
-- Legal threat
-- Enterprise customer complaint
-- Repeated unresolved issue
-- Explicit request for human support
+=======================================================
+SECTION 1: ESCALATION CONDITIONS
+=======================================================
 
-Priority Classification:
+A support case is escalated from AI/Tier-1 to a human agent when any of the following conditions are met:
 
-Low:
-General queries, informational requests.
+Mandatory Escalation Triggers:
+1. Refund Demand: Customer explicitly requests a refund for any amount (regardless of eligibility)
+2. Legal Threat: Customer mentions legal action, lawyers, regulatory complaints (FTC, GDPR DPAs), or lawsuits
+3. Chargeback/Dispute: Customer has filed or threatens to file a payment dispute with their bank
+4. Explicit Human Request: Customer asks to speak with a human agent, manager, supervisor, or account manager
+5. Repeated Unresolved Issue: Same issue reported 3+ times without resolution, or customer has been waiting >24 hours without update
+6. Enterprise Customer Complaint: Any complaint from a customer on an Enterprise contract
+7. SLA Breach Claim: Customer reports a suspected SLA breach and requests credit
+8. Data Privacy Concern: Customer raises a concern about data breach, GDPR/CCPA compliance, or requests data deletion
+9. Account Closure Request: Customer requests to permanently close/delete their account and all data
 
-Medium:
-Technical issues affecting limited functionality.
+Discretionary Escalation Triggers (Tier-1 agent judgement):
+- High emotional distress or extreme frustration with multiple ALL-CAPS messages or profanity
+- Complex technical issue requiring engineering team investigation (e.g., suspected platform bug)
+- Billing dispute involving more than $500 in charges
+- Media or PR sensitivity (customer identifies themselves as journalist, regulator, or influencer)
 
-High:
-Repeated failures, billing disputes, enterprise impact.
+=======================================================
+SECTION 2: PRIORITY CLASSIFICATION SYSTEM
+=======================================================
 
-Critical:
-System-wide outage, legal threat, enterprise SLA breach.
+Priority: Critical
+- Definition: Immediate business-stopping impact; legal exposure or high-value enterprise at risk
+- Triggers: Legal threats, Enterprise SLA breach, major financial impact (>$10,000), data breach concern
+- Response Time Target: Immediate — agent assigned within 15 minutes, 24/7
+- Handling Team: Senior Customer Success Manager + Legal (if required) + VP-level escalation path
+- Resolution Target: First meaningful response within 15 minutes; full resolution within 4 hours
 
-Response Time Targets:
-Low: 24 hours
-Medium: 8 hours
-High: 2 hours
-Critical: Immediate
+Priority: High
+- Definition: Significant business impact; repeated failures or financial discrepancy
+- Triggers: Refund demand, billing dispute, repeated unresolved technical issue, campaign serving completely down for >2 hours
+- Response Time Target: Within 2 hours (business hours); 4 hours (outside business hours)
+- Handling Team: Tier-2 Support (Senior Support Engineer or Account Manager)
+- Resolution Target: Full resolution or escalation path within 24 hours
+
+Priority: Medium
+- Definition: Noticeable impact on operations; customer frustrated but business not fully stopped
+- Triggers: Explicit human request, significant feature degraded, 1–2 failed resolution attempts
+- Response Time Target: Within 8 business hours
+- Handling Team: Tier-2 Support
+- Resolution Target: Full resolution within 48 hours
+
+Priority: Low
+- Definition: General complexity or queries requiring human context; no immediate business impact
+- Triggers: Complex billing question, account policy inquiry, non-urgent account changes
+- Response Time Target: Within 24 business hours
+- Handling Team: Tier-1 Support with Tier-2 availability
+- Resolution Target: Full resolution within 5 business days
+
+=======================================================
+SECTION 3: ESCALATION WORKFLOW
+=======================================================
+
+Step-by-Step Escalation Process:
+1. Escalation Triggered: AI agent or Tier-1 agent identifies escalation condition
+2. Case Summary Generated: Automated summary created including: customer info, issue description, persona, priority, previous interactions
+3. CRM Ticket Created: Case escalated in Salesforce/Zendesk with priority tag and full conversation transcript
+4. Team Notification: Assigned team receives alert via Slack (#escalations) and email
+5. Customer Acknowledgement: Automated message sent to customer: "Your case has been escalated. A [team] member will contact you within [response time]."
+6. Agent Assignment: Escalation queue manager assigns to available agent based on expertise
+7. Active Resolution: Human agent contacts customer via their preferred channel (email, phone, Slack)
+8. Case Closure: Resolved by agent; case marked Resolved with root cause and resolution documented
+9. CSAT Survey: Satisfaction survey sent 24 hours after resolution
+
+Escalation Data Package (sent to human agent):
+- Customer account details: Plan, tenure, MRR, previous support interactions
+- Detected persona: Technical Expert / Frustrated User / Business Executive
+- Priority level and justification
+- Full conversation transcript
+- Relevant KB chunks retrieved and shown to customer
+- Recommended resolution path based on escalation type
+
+=======================================================
+SECTION 4: SPECIALIST ESCALATION TEAMS
+=======================================================
+
+Billing & Accounts Team:
+- Handles: Refund requests, billing disputes, payment failures, invoice discrepancies
+- Contact: billing-support@campaignmanager.io
+- Availability: Monday–Friday 9 AM–6 PM EST
+
+Legal & Compliance Team:
+- Handles: Legal threats, GDPR/CCPA requests, chargeback investigations, regulatory inquiries
+- Contact: legal@campaignmanager.io (not publicly listed; internal escalation only)
+- Availability: Monday–Friday 9 AM–5 PM EST; on-call for Critical cases
+
+Technical Engineering Team (Tier-3):
+- Handles: Platform bugs, API issues requiring code investigation, data integrity issues
+- Escalation path: Tier-2 → Engineering via Jira bug tracker
+- Response: Within 4 hours for Critical, 1 business day for High
+
+Enterprise Account Management:
+- Handles: All Enterprise customer escalations, QBR concerns, contract disputes, SLA credit claims
+- Contact: enterprise@campaignmanager.io (+ dedicated Slack channel per account)
+- Availability: 24/7 for Critical; business hours for all others
+
+Customer Success Team:
+- Handles: Churn risk, sentiment recovery, feature education, onboarding issues
+- Triggered when: CSAT <3/5 after resolution, account shows cancellation intent signals
+
+=======================================================
+SECTION 5: POST-ESCALATION PROCESS
+=======================================================
+
+After Resolution:
+- Agent documents root cause, steps taken, and resolution in CRM
+- Customer receives satisfaction survey (CSAT)
+- If CSAT <3: Automatic review flagged to Customer Success Manager
+- For Critical cases: Post-mortem written and reviewed by Support Director within 5 business days
+
+Escalation Metrics Tracked:
+- Time to First Response (TTFR)
+- Time to Resolution (TTR)
+- Escalation Rate (% of total contacts escalated)
+- Customer Satisfaction Score (CSAT) post-escalation
+- First Contact Resolution (FCR) for similar future cases
+
+SLA Credit Processing (if applicable):
+- Finance team processes approved SLA credits within 5 business days
+- Credit applied to next invoice; notification sent to billing contact
+- For Enterprise financial penalties: Processed per contract terms

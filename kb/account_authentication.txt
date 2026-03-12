@@ -1,27 +1,132 @@
-ACCOUNT & AUTHENTICATION SUPPORT
+ACCOUNT & AUTHENTICATION SUPPORT GUIDE — Campaign Manager Platform
 
-Password Reset:
-Users can reset password using "Forgot Password" link.
-Password reset link expires in 15 minutes.
+=======================================================
+SECTION 1: PASSWORD MANAGEMENT
+=======================================================
 
-Two-Factor Authentication (2FA):
-If user cannot access 2FA:
-- Use backup codes.
-- Contact support for identity verification.
+Password Reset Procedure:
+- Navigate to the login page and click "Forgot Password?"
+- Enter the email address associated with your account
+- A password reset link will be sent within 2 minutes (check spam/junk folder if not received)
+- The reset link expires in 15 minutes for security reasons
+- If the link has expired, request a new one from the login page
+- New password must be at least 12 characters, contain one uppercase letter, one number, and one special character
+- You cannot reuse your last 5 passwords
 
-Account Suspension:
-Accounts may be suspended due to:
-- Payment failure
-- Policy violation
-- Suspicious activity
+Common reasons password reset email is not received:
+- Email is in spam or junk folder
+- Email was registered with a typo (e.g., .con instead of .com) — contact support with account details
+- Email domain has a strict SPF/DKIM policy blocking automated emails — whitelist noreply@campaignmanager.io
+- Account was created via Google/Microsoft SSO and does not have a separate password
 
-Resolution:
-- Clear pending invoices.
-- Submit verification documents.
-- Contact support for review.
+Changing Password While Logged In:
+1. Go to Account Settings > Security > Change Password
+2. Enter current password and new password
+3. All active sessions except the current one will be terminated after password change
 
-Login Issues:
-Ensure:
-- Correct email address
-- Browser cookies enabled
-- No VPN blocking authentication
+=======================================================
+SECTION 2: TWO-FACTOR AUTHENTICATION (2FA)
+=======================================================
+
+Setting Up 2FA:
+1. Go to Account Settings > Security > Two-Factor Authentication
+2. Choose authentication method: Authenticator App (recommended) or SMS
+3. For authenticator app: scan QR code with Google Authenticator, Authy, or Microsoft Authenticator
+4. Enter 6-digit verification code to confirm setup
+5. Download and store backup codes in a secure location (each code is single-use)
+
+If You Cannot Access Your 2FA Device:
+- Use one of the 8 backup codes provided during setup (Settings > Security > Download Backup Codes)
+- If backup codes are lost:
+  1. Contact support with your account email and government-issued ID for identity verification
+  2. Provide at minimum 2 of: last known billing address, last successfully paid invoice number, IP address used for registration
+  3. Identity verification takes 24–48 hours; 2FA will be reset after verification
+
+Supported 2FA Methods:
+- TOTP Authenticator Apps (Google Authenticator, Authy, 1Password)
+- SMS One-Time Passwords (7-digit code, expires in 5 minutes)
+- Hardware Security Keys (FIDO2/WebAuthn) — Enterprise plan only
+
+Disabling 2FA:
+- Only possible by an admin user for sub-accounts
+- For primary account: Requires current 2FA verification + password confirmation
+- 2FA cannot be permanently disabled for accounts in Enterprise plan (enforced by organization policy)
+
+=======================================================
+SECTION 3: SINGLE SIGN-ON (SSO)
+=======================================================
+
+Supported SSO Providers:
+- Google Workspace (Google SSO)
+- Microsoft Azure Active Directory (Microsoft SSO)
+- SAML 2.0 (Enterprise plan — custom IdP integration)
+- LDAP/Active Directory (Enterprise plan only)
+
+Setting Up Google SSO:
+1. Go to Settings > SSO Configuration
+2. Click "Connect Google Workspace"
+3. Authorise Campaign Manager to access your Google Workspace directory
+4. Users in your Google Workspace domain can now sign in with "Continue with Google"
+
+SAML 2.0 Configuration (Enterprise):
+- Requires: IdP metadata URL, Entity ID, ACS URL
+- Campaign Manager's Service Provider (SP) Entity ID: https://auth.campaignmanager.io/saml/sp
+- ACS Callback URL: https://auth.campaignmanager.io/saml/callback
+- Contact your enterprise account manager for detailed SAML configuration guide
+
+=======================================================
+SECTION 4: ACCOUNT SUSPENSION
+=======================================================
+
+Reasons an account may be suspended:
+- Payment failure: 3 consecutive failed payment attempts trigger account suspension after 7-day grace period
+- Policy violation: Campaigns serving prohibited content (adult content, counterfeit goods, malware)
+- Suspicious activity: Unusual login pattern detected (multiple countries within minutes, large-scale automated access)
+- Fraudulent billing activity: Chargeback or dispute raised on account
+
+Steps to reactivate a suspended account:
+1. Log in — you will see a suspension notice with the specific reason
+2. For payment issues: Clear the outstanding invoice from the Billing dashboard or update payment method
+3. For policy violations: Review the policy violation report emailed to your account email, remove non-compliant content, and submit a reactivation request
+4. For security concerns: Verify your identity via support and reset your password and 2FA
+5. Reactivation is typically processed within 1–4 business hours after the issue is resolved
+
+Account suspension due to inactivity:
+- Accounts inactive for 18+ consecutive months may be flagged for archival
+- A 30-day email warning is sent to the registered email before archival
+- Data is retained for 90 days after archival; contact support to reactivate within that window
+
+=======================================================
+SECTION 5: USER ROLES & PERMISSIONS
+=======================================================
+
+Role Types:
+- Owner: Full access, billing control, can add/remove users
+- Admin: Full campaign access, user management (cannot change billing)
+- Manager: Can create and edit campaigns, no billing or user access
+- Analyst: Read-only access to campaigns and analytics
+- Custom Roles: Enterprise plan allows custom role creation with granular permissions
+
+Adding New Team Members:
+1. Go to Settings > Team > Invite User
+2. Enter email address and select role
+3. User receives invitation email valid for 48 hours
+4. If invitation expires, simply resend from the same screen
+
+=======================================================
+SECTION 6: LOGIN TROUBLESHOOTING
+=======================================================
+
+Cannot log in despite correct credentials:
+- Ensure Caps Lock is not enabled
+- Clear browser cookies and cache and try again
+- Try incognito/private browsing mode to rule out extension conflicts
+- Verify you are using the correct email (some users have multiple accounts with different emails)
+- Ensure the browser is not blocking third-party cookies (required for SSO)
+- Try a different browser (Chrome, Firefox, Edge supported)
+- Disable VPN — some VPN exit nodes are on our IP blocklist due to fraud prevention
+
+Account locked after too many failed login attempts:
+- 5 consecutive failed attempts triggers a 30-minute account lockout
+- Wait 30 minutes and try again, or use password reset to bypass the lockout
+- Admin users can unlock sub-accounts from Settings > Team > Manage Users

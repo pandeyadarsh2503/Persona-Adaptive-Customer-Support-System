@@ -1,33 +1,131 @@
-BILLING & PRICING INFORMATION
+BILLING & PRICING GUIDE — Campaign Manager Platform
 
-Subscription Plans:
+=======================================================
+SECTION 1: SUBSCRIPTION PLANS
+=======================================================
 
-Starter Plan:
-- $49/month
-- Up to 5 campaigns
-- Email support
+Starter Plan — $49/month (or $470/year — save 20%)
+- Up to 5 active campaigns simultaneously
+- 200,000 ad impressions per month included
+- 2 team members
+- Standard email support (48-hour response SLA)
+- Access to basic analytics dashboard
+- API access: 200 requests per minute
+- Campaign types: Search, Display
 
-Growth Plan:
-- $149/month
-- Up to 25 campaigns
-- Priority support
+Growth Plan — $149/month (or $1,430/year — save 20%)
+- Up to 25 active campaigns simultaneously
+- 2,000,000 ad impressions per month included
+- Up to 10 team members
+- Priority support (8-hour response SLA) via email + live chat
+- Full analytics suite including export to CSV/Excel/PDF
+- API access: 600 requests per minute
+- Campaign types: Search, Display, Video, Native
+- A/B testing tools included
 
-Enterprise Plan:
-- Custom pricing
-- Unlimited campaigns
-- Dedicated account manager
-- SLA-backed uptime
+Enterprise Plan — Custom Pricing (contact sales@campaignmanager.io)
+- Unlimited active campaigns
+- Custom impression volumes negotiated in contract
+- Unlimited team members with custom roles
+- Dedicated account manager and technical solutions engineer
+- SLA-backed uptime guarantee (99.9% or 99.99% depending on tier)
+- 24/7 phone and email support (Critical: immediate, High: 2-hour SLA)
+- Full API access: 5,000+ RPM with custom rate limit negotiation
+- Quarterly business reviews (QBRs)
+- Custom integrations: CRM, DSP, DMP connections
+- Advanced fraud detection and brand safety tools
+- White-label reporting available
 
-Refund Policy:
-- Monthly subscriptions refundable within 7 days of billing.
-- No refund for usage beyond 7 days.
-- Enterprise refunds subject to contract.
+=======================================================
+SECTION 2: BILLING CYCLE & INVOICES
+=======================================================
 
-Invoice Generation:
-Invoices are automatically generated on billing date.
-Download invoices from Billing Dashboard.
+Monthly Billing:
+- Billing occurs on the same date each month (anniversary of subscription start)
+- Payment is charged automatically to the saved payment method
+- Invoices are generated 1 day before the billing date and emailed to the billing contact
+- Download past invoices: Billing Dashboard > Invoice History > Download PDF
 
-Payment Failure:
-After 3 failed attempts:
-- Account enters grace period (7 days).
-- Services paused after grace period.
+Annual Billing:
+- Billed in full at the start of the annual period
+- Cannot downgrade to monthly billing during the annual term
+- Annual invoices include VAT/GST breakdown by region
+
+Accepted Payment Methods:
+- Credit/Debit Cards: Visa, Mastercard, American Express, Discover
+- ACH Bank Transfer (US customers, Enterprise plan only)
+- Wire Transfer (Enterprise plan, minimum $5,000 annual contract)
+- Invoiced Net-30 terms available for Enterprise contracts
+
+Adding or Updating Payment Method:
+1. Go to Billing > Payment Methods
+2. Click "Add New Payment Method" or "Edit" on existing
+3. Card details are stored via PCI-DSS compliant tokenisation (we never store raw card numbers)
+4. Set new card as default for future charges
+
+=======================================================
+SECTION 3: REFUND POLICY
+=======================================================
+
+Monthly Subscriptions:
+- Full refund available if requested within 7 days of the billing date
+- No partial refunds for unused days beyond the 7-day window
+- Refunds are processed within 5–10 business days to the original payment method
+
+Annual Subscriptions:
+- Refund within 14 days of annual billing date: Full refund minus any overage usage charges
+- After 14 days: Prorated refund calculated based on remaining full months unused (no partial month refunds)
+- The minimum non-refundable amount is 2 months of equivalent monthly cost
+
+Enterprise Contracts:
+- Refunds governed by the specific terms in your contract
+- Contact your account manager or legal@campaignmanager.io for contract-specific refund terms
+
+Overage Charges:
+- Overage on impressions: $0.50 per 1,000 impressions above plan limit (CPM)
+- Overage charges are billed at the end of the billing cycle, not in real-time
+- Set up overage alerts in Billing > Notifications to receive warnings at 80% and 95% of plan limits
+- You can set a hard cap to stop serving ads when limit is reached (no overage charges)
+
+=======================================================
+SECTION 4: PAYMENT FAILURE HANDLING
+=======================================================
+
+What happens when payment fails:
+1. First failure: Immediate retry attempted 24 hours after failure
+2. Second failure: Retry after 3 days; warning email sent to billing contact
+3. Third failure: Account enters 7-day grace period, services continue
+4. End of grace period: Campaign serving is paused; account access for data export only
+5. After 30 days with no payment: Account is archived (data retained for 90 days then deleted)
+
+Resolving a payment failure:
+1. Go to Billing > Outstanding Balance
+2. Review the failed charge amount and reason (insufficient funds, card declined, expired card)
+3. Update your payment method if needed
+4. Click "Retry Payment" to immediately attempt charge on new/updated card
+5. Services resume within 15 minutes of successful payment
+
+VAT / Tax Handling:
+- EU customers: VAT is added based on country of billing address
+- US customers: Sales tax applied in applicable states (NY, TX, CA, etc.)
+- Provide your VAT registration number in Billing > Tax Settings to receive invoices without VAT (for B2B in EU)
+- Non-profit discounts: 20% discount available with proof of 501(c)(3) or equivalent
+
+=======================================================
+SECTION 5: PLAN UPGRADES & DOWNGRADES
+=======================================================
+
+Upgrading Plan:
+- Effective immediately; prorated credit for remaining days of current plan applied to next invoice
+- Access to new features begins instantly after upgrade confirmation
+
+Downgrading Plan:
+- Effective at the end of the current billing cycle
+- Cannot downgrade if current usage exceeds the lower plan's limits (e.g., more than 5 active campaigns on Starter)
+- Reduce campaigns to within the plan limit before requesting downgrade
+
+Cancelling Subscription:
+- Cancel from Billing > Subscription > Cancel Plan
+- Access continues until the end of the current billing period
+- Data is retained for 90 days after cancellation; export your data before this window closes
+- Reactivation within 90 days restores all historical data; after 90 days, data is permanently deleted

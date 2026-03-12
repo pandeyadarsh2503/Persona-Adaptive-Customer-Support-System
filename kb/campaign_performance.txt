@@ -1,24 +1,137 @@
-CAMPAIGN PERFORMANCE ISSUES
+CAMPAIGN PERFORMANCE TROUBLESHOOTING GUIDE — Campaign Manager Platform
 
-Ads Not Delivering:
-Possible causes:
-- Insufficient budget
-- Incorrect targeting
-- Disapproved creatives
+=======================================================
+SECTION 1: ADS NOT DELIVERING
+=======================================================
 
-Low Impressions:
-- Narrow audience targeting
-- Low bid amount
-- Campaign schedule restrictions
+If your campaign is active but ads are not being served, check the following in order:
 
-Budget Exhausted:
-Campaign stops when daily or total budget is reached.
-Increase budget from dashboard to resume.
+1. Budget Status
+   - Is the daily or total campaign budget exhausted? Check Campaign > Budget Status
+   - If daily budget is depleted before midnight, ads stop serving until the next day
+   - Solution: Increase daily budget or enable "Budget pacing" to distribute spend evenly throughout the day
 
-Disapproved Ads:
-Ads may be rejected due to:
-- Policy violations
-- Prohibited content
-- Incorrect formatting
+2. Creative Approval Status
+   - All ad creatives must pass our automated + manual review (24–48 hours for new ads)
+   - Check Creative Library > Status column for: Approved, Pending Review, Disapproved
+   - Disapproved creatives will not serve; fix the issue and resubmit for review
 
-Review policy guidelines before resubmission.
+3. Audience Targeting Too Narrow
+   - Very specific audience segments (high-intent, narrow geography, tight demographic) can result in zero or near-zero daily impressions
+   - Expand targeting: broaden age range, add more interests, loosen geographic radius
+   - Use Audience Insights to see estimated reach before launching
+
+4. Bid Amount Too Low
+   - In competitive auctions, bids below the floor price result in no wins
+   - Check the Bid Recommendations widget on the campaign edit page for suggested bid ranges
+   - Enable "Enhanced CPC" to let the system optimise bids automatically
+
+5. Campaign Schedule Restrictions
+   - Ads may be restricted to specific hours (dayparting) — verify Schedule settings
+   - Ensure start date is not in the future and end date has not passed
+
+6. Geo-targeting Conflict
+   - Verify your target region has available inventory for your chosen ad format
+   - Some geographies have limited Display or Video inventory; try expanding to regional or national level
+
+=======================================================
+SECTION 2: LOW IMPRESSIONS
+=======================================================
+
+Common causes and fixes:
+
+Low Daily Impressions (under 1,000/day)
+- Audience too small: Use Audience Estimator (reach must be >10,000 to compete in auctions)
+- CPM bid too low: Increase target CPM bid by 20–30% and monitor impact
+- Ad format restrictions: Video ads have fewer available placements than Display; consider adding Display format
+- Frequency cap too strict: A cap of 1 impression per user per day significantly limits scale
+- Negative keyword list too broad: Review and reduce negative keywords that may be blocking valid queries
+
+Impressions Suddenly Dropped
+- Check if any changes were made to the campaign in the past 24 hours (edits, budget changes, targeting changes)
+- Review the Change History log: Campaign > History
+- Check for a new policy enforcement action on your creatives
+- Check our status page for any platform-wide performance issues
+
+Improving Impression Volume:
+1. Increase budget to remove the budget constraint
+2. Widen audience targeting (add lookalike audiences)
+3. Add more ad formats (Display + Video + Native)
+4. Enable "Reach Maximiser" bidding strategy for awareness campaigns
+5. Expand geographic targeting from city to state/country level
+
+=======================================================
+SECTION 3: LOW CLICK-THROUGH RATE (CTR)
+=======================================================
+
+Industry benchmark CTRs:
+- Display ads: 0.05% – 0.1%
+- Search ads: 2% – 5%
+- Video ads (completion-based): 20%–35% view rate
+- Native ads: 0.2% – 0.5%
+
+Improving CTR:
+- Use action-oriented headlines: "Get 50% Off Today" outperforms "Our Products"
+- A/B test at least 3 creative variants per campaign simultaneously
+- Ensure ad copy speaks to the audience's intent (match message to search query)
+- Use ad extensions (site links, callouts, promotions) for Search campaigns
+- Refresh creatives every 4–6 weeks to avoid ad fatigue
+- Use dynamic keyword insertion for Search ads to increase relevance
+
+=======================================================
+SECTION 4: DISAPPROVED ADS
+=======================================================
+
+Top reasons for ad disapproval:
+1. Prohibited content: Adult content, weapons, dangerous products, counterfeit goods
+2. Misleading claims: Superlative claims ("Best in the world") without substantiation
+3. Landing page issues: Landing page is down, loads slowly (<3 sec), or is inconsistent with ad copy
+4. Trademark violations: Using competitor brand names in ad copy without authorisation
+5. Grammar/spelling errors: Ads with obvious errors are rejected automatically
+6. Circumventing systems: Using redirects or cloaking to hide final destination URL
+
+How to fix a disapproved ad:
+1. Go to Creative Library > click on disapproved ad > View Policy Reason
+2. Read the detailed policy violation explanation
+3. Edit the creative to resolve the issue
+4. Click "Submit for Review" — review usually completes within 24 hours
+5. Do not create duplicate ads to bypass review; this risks account suspension
+
+Appealing a Disapproval:
+- If you believe the disapproval is incorrect, click "Appeal" next to the ad
+- Provide a clear explanation and any supporting documentation
+- Appeals are reviewed by the Policy team within 48 business hours
+- Approved appeals are valid for 30 days; resubmit if the creative changes
+
+=======================================================
+SECTION 5: CAMPAIGN OPTIMISATION BEST PRACTICES
+=======================================================
+
+Bidding Strategies:
+- Target CPA: Best for conversion-focused campaigns; set target cost-per-acquisition
+- Target ROAS: Optimise for return on ad spend; minimum 50 conversions/month recommended
+- Maximise Conversions: Let the system spend budget for most conversions (no explicit CPA target)
+- Manual CPC: Full control; recommended for experienced advertisers with clear data
+- Enhanced CPC: Manual bids with automated adjustments for higher conversion probability
+
+Conversion Tracking Setup:
+1. Install the Campaign Manager pixel on your website (Settings > Tracking > Pixel Setup)
+2. Create conversion events: Purchase, Lead Form Submission, Page View, Custom
+3. Verify pixel is firing: Use the Tag Assistant browser extension
+4. Allow 2 weeks of conversion data before enabling automated bidding strategies
+
+Quality Score Improvement:
+- Higher quality scores reduce your effective CPC
+- Improve quality score by: matching ad copy to keywords, improving landing page relevance, increasing expected CTR
+- Quality score is recalculated daily; changes reflect within 24 hours
+
+=======================================================
+SECTION 6: CONVERSION ISSUES
+=======================================================
+
+Conversions not being tracked:
+- Verify the conversion pixel is installed on the confirmation/thank-you page, not the product page
+- Check for ad blockers in your browser during testing (use incognito mode with extensions disabled)
+- Cross-device conversions have a 7-day attribution window by default; adjust in Settings > Attribution
+- View-through conversions are attributed within 24 hours of ad view
+- Ensure the pixel fires on HTTPS pages only (mixed content blocks pixel loading)

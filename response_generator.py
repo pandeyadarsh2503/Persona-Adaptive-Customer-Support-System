@@ -8,7 +8,7 @@ Orchestrates the full support response pipeline:
   3. If escalated  → generate LLM escalation summary → return structured JSON.
   4. If not escalated → build tone-adaptive prompt → call Gemini → return resolved JSON.
 
-LLM: gemini-2.0-flash-latest (free tier on Google AI Studio).
+LLM: gemini-1.5-flash (free tier on Google AI Studio).
 """
 
 from __future__ import annotations
@@ -29,6 +29,10 @@ from utils.prompts import (
 # Gemini client initialisation
 # ---------------------------------------------------------------------------
 
+# Use a stable, free-tier model name — gemini-2.0-flash-latest does NOT work
+# on the v1beta endpoint used by google-generativeai < 0.8.
+MODEL_NAME = "gemini-flash-latest"
+
 def _init_gemini() -> genai.GenerativeModel:
     """Configure Gemini and return the model instance."""
     api_key = os.getenv("GOOGLE_API_KEY")
@@ -37,7 +41,18 @@ def _init_gemini() -> genai.GenerativeModel:
             "GOOGLE_API_KEY not set. Add it to your .env file."
         )
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel(model_name="gemini-2.0-flash-latest")
+
+    # Generation config for higher quality, focused answers
+    generation_config = genai.types.GenerationConfig(
+        temperature=0.3,          # lower = more factual, less hallucination
+        top_p=0.85,
+        max_output_tokens=1024,
+    )
+
+    model = genai.GenerativeModel(
+        model_name=MODEL_NAME,
+        generation_config=generation_config,
+    )
     return model
 
 
@@ -53,7 +68,7 @@ class ResponseGenerator:
     def __init__(self) -> None:
         self._model = _init_gemini()
         self._escalation_engine = EscalationEngine()
-        print("[ResponseGenerator] Gemini model ready: gemini-2.0-flash-latest")
+        print(f"[ResponseGenerator] Gemini model ready: {MODEL_NAME}")
 
     # ------------------------------------------------------------------
     # Main entry point

@@ -1,25 +1,130 @@
-SERVICE LEVEL AGREEMENT (SLA)
+SERVICE LEVEL AGREEMENT (SLA) & DOWNTIME POLICY — Campaign Manager Platform
 
-Uptime Guarantee:
-AdSpark guarantees 99.9% uptime per calendar month.
+=======================================================
+SECTION 1: UPTIME GUARANTEE
+=======================================================
 
-Downtime Definition:
-Downtime refers to:
-- API unavailability
-- Dashboard inaccessibility
-- Campaign serving failure
+Standard Uptime Commitment:
+- Starter Plan: Best-effort availability (no formal SLA)
+- Growth Plan: 99.5% monthly uptime guarantee
+- Enterprise Plan (Standard): 99.9% monthly uptime guarantee
+- Enterprise Plan (Premium): 99.99% monthly uptime guarantee
 
-Compensation Policy:
-If uptime falls below 99.9%:
-- Eligible for service credit
-- Credit calculated as % of monthly subscription fee
+Uptime Calculation:
+- Measured as a percentage of total minutes in a calendar month
+- 99.9% uptime = max 43.8 minutes of allowed downtime per month
+- 99.99% uptime = max 4.38 minutes of allowed downtime per month
+- Uptime excludes scheduled maintenance windows (see Section 3)
 
-Scheduled Maintenance:
-Scheduled maintenance windows are:
-- Sundays 2 AM – 4 AM UTC
-- Announced 48 hours in advance
+What Counts as Downtime:
+- API unavailability (returning 5xx errors to >5% of requests for >1 minute)
+- Campaign serving failures (ads not being served to end users)
+- Dashboard inaccessibility (login page or core UI not loading)
+- Analytics data pipeline delays exceeding 2 hours
+- What does NOT count: Client-side network issues, third-party dependency outages, scheduled maintenance
 
-Major Incidents:
-For critical outages:
-- Incident updates provided every 30 minutes
-- Root cause analysis shared within 72 hours
+=======================================================
+SECTION 2: SLA CREDITS & COMPENSATION POLICY
+=======================================================
+
+Credit Calculation Table:
+- 99.0% – 99.5% uptime (Growth): 10% service credit of monthly fee
+- 95.0% – 99.0% uptime (Growth): 25% service credit of monthly fee
+- Below 95.0% uptime (Growth): 50% service credit of monthly fee
+
+- 99.5% – 99.9% uptime (Enterprise Standard): 10% service credit
+- 99.0% – 99.5% uptime (Enterprise Standard): 25% service credit
+- Below 99.0% uptime (Enterprise Standard): 50% service credit
+
+- 99.9% – 99.99% uptime (Enterprise Premium): 10% service credit
+- 99.0% – 99.9% uptime (Enterprise Premium): 25% service credit
+- Below 99.0% uptime (Enterprise Premium): 100% service credit + executive review
+
+How to Claim SLA Credits:
+1. Credits are NOT automatically applied — you must submit a claim
+2. File a credit claim within 30 days of the incident using the SLA Credit Request form at billing.campaignmanager.io/sla-claim
+3. Include: incident date, time, duration, and the impact on your campaigns/business
+4. Claims are reviewed by the Finance team within 5 business days
+5. Approved credits are applied to the next billing invoice (not issued as cash refund unless account is being cancelled)
+
+Credit Claim Deadlines:
+- Claims submitted more than 30 days after an incident are not eligible
+- Only one claim per calendar month per incident category is permitted
+- Credits do not accumulate across months; unused credits expire at end of billing cycle
+
+Contract-Based Penalties (Enterprise Premium):
+- Some Enterprise contracts include financial penalties (beyond service credits) for sustained outages
+- Penalty triggers: >4 hours of downtime in a single incident or >6 hours total in a calendar month
+- Contact your account manager or legal@campaignmanager.io for penalty assessment
+
+=======================================================
+SECTION 3: SCHEDULED MAINTENANCE WINDOWS
+=======================================================
+
+Regular Maintenance Windows:
+- Primary window: Every Sunday 2:00 AM – 4:00 AM UTC
+- Secondary window (if needed): Wednesday 3:00 AM – 4:00 AM UTC
+- Maximum downtime per window: 60 minutes
+
+Maintenance Notification Policy:
+- Routine maintenance: 48-hour advance notice via email and in-app banner
+- Emergency maintenance: Minimum 2-hour notice (when possible) via email + SMS (if opted in)
+- Cancellation: If maintenance is cancelled, a cancellation notice is sent 30 minutes before the start of the window
+- Subscribe to maintenance notifications at status.campaignmanager.io
+
+What happens during maintenance:
+- Campaign serving continues uninterrupted in most cases (serving layer is separate from management layer)
+- Dashboard and API may be unavailable for read/write operations
+- Any scheduled report exports are queued and processed immediately after maintenance ends
+- Webhook deliveries are queued and delivered after maintenance completion
+
+=======================================================
+SECTION 4: INCIDENT RESPONSE & COMMUNICATION
+=======================================================
+
+Incident Severity Levels:
+- P0 (Critical): Complete platform outage or campaign serving failure affecting 10%+ of users
+  - On-call engineer paged immediately; initial response within 15 minutes
+  - Status page updated every 15 minutes during active incident
+  
+- P1 (High): Significant degradation affecting a major feature (e.g., analytics unavailability, reporting failures)
+  - Response within 30 minutes
+  - Status page updated every 30 minutes
+  
+- P2 (Medium): Minor feature degradation affecting some users
+  - Response within 2 hours
+  - Status page updated hourly
+
+- P3 (Low): Individual user-reported issues, no widespread impact
+  - Response within 8 business hours
+
+Communication Channels During Incidents:
+- Status Page: status.campaignmanager.io (real-time) — subscribe for instant push notifications
+- Email: Incident emails sent to the registered notification contacts
+- SMS: Opt-in at Settings > Notifications > SMS Alerts
+- Enterprise Slack channel: Dedicated #incidents channel for Enterprise customers
+- Twitter/X: @CM_Status for major incident updates
+
+Root Cause Analysis (RCA):
+- P0/P1 incidents: Full RCA shared within 72 hours of incident resolution
+- RCAs include: timeline of events, root cause, impact assessment, remediation steps taken, future prevention measures
+- Access all historical RCAs at status.campaignmanager.io/incidents
+
+=======================================================
+SECTION 5: DISASTER RECOVERY
+=======================================================
+
+Data Backup Policy:
+- Campaign configuration data: Backed up every 4 hours; recovery point objective (RPO) = 4 hours
+- Analytics and reporting data: Backed up daily; retained for 13 months
+- Creative assets: Stored redundantly in 3 geographically separated data centres
+
+Recovery Time Objective (RTO):
+- Critical systems (campaign serving): RTO = 30 minutes
+- Management dashboard: RTO = 2 hours
+- Historical analytics: RTO = 4 hours
+
+Geographic Redundancy:
+- Platform hosted across 3 AWS regions (US-East, EU-West, AP-Southeast)
+- Automatic failover to secondary region triggers when primary region capacity falls below 30%
+- Enterprise customers can request data residency in specific regions (EU, US, or APAC)

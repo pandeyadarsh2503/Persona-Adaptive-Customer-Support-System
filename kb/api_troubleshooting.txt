@@ -1,34 +1,139 @@
-API TROUBLESHOOTING GUIDE
+API TROUBLESHOOTING GUIDE — Campaign Manager Platform
 
-HTTP 500 Error:
-A 500 error indicates a server-side exception.
+=======================================================
+SECTION 1: HTTP ERROR CODES
+=======================================================
+
+HTTP 500 — Internal Server Error
+---------------------------------
+A 500 error indicates an unhandled exception on the server side. This is never caused by the client request format alone.
+
 Common causes:
-- Backend service crash
-- Database connectivity issues
-- Misconfigured deployment
-- Invalid request payload
+- Backend service crash due to memory overflow or code exception
+- Database connectivity failure (connection pool exhausted)
+- Misconfigured environment variables or secrets in the deployment
+- Third-party dependency timeout (e.g., payment gateway, email service)
+- Invalid request payload that bypasses client-side validation
 
-Resolution Steps:
-1. Check API logs for stack trace.
-2. Validate authentication token.
-3. Verify request format matches API documentation.
-4. Confirm no recent deployment caused regression.
-5. Retry request after 2–3 minutes.
+Step-by-step resolution:
+1. Immediately check the API status page at status.campaignmanager.io
+2. Retrieve server-side logs from your dashboard under Settings > Logs > API Errors
+3. Validate your authentication token is valid and not expired
+4. Verify the request payload matches the API schema documented at docs.campaignmanager.io
+5. Confirm no deployment was pushed in the last 30 minutes that may have caused a regression
+6. Retry the request after 2–3 minutes using exponential backoff
+7. If the issue persists beyond 10 minutes, raise a Priority 1 support ticket
 
-HTTP 401 Unauthorized:
-Occurs when API key or access token is invalid or expired.
+HTTP 401 — Unauthorized
+------------------------
+Occurs when the API key or OAuth access token is invalid, expired, or malformed.
+
+Resolution steps:
+- Regenerate your API key from the Developer Console under Settings > API Keys
+- Ensure the Authorization header is formatted correctly: Authorization: Bearer <TOKEN>
+- Check token expiry — access tokens expire every 3600 seconds (1 hour) by default
+- OAuth refresh tokens expire after 30 days of inactivity; regenerate from the OAuth Apps section
+- Confirm the API key has sufficient permissions (read/write) for the operation being performed
+- Never expose API keys in client-side code or version control; rotate immediately if compromised
+
+HTTP 403 — Forbidden
+---------------------
+The authenticated user does not have permission to perform the requested action.
+
+Common reasons:
+- Attempting to modify another organisation's campaign
+- Accessing an endpoint that requires a higher-tier subscription (e.g., Enterprise API features)
+- IP allowlist restriction: If your organisation has enabled IP allowlisting, requests from unlisted IPs are blocked
+- Rate-limit specific endpoint restrictions for Starter plan users
+
 Resolution:
-- Regenerate API key from dashboard.
-- Ensure Authorization header format is correct.
+- Verify the resource belongs to your account
+- Check your subscription tier against the API feature matrix
+- Add your IP to the allowlist in Settings > Security > IP Allowlist
 
-HTTP 429 Rate Limit Exceeded:
-API rate limit: 1000 requests per minute.
-If exceeded:
-- Implement exponential backoff.
-- Reduce request frequency.
+HTTP 429 — Rate Limit Exceeded
+-------------------------------
+API rate limits by plan:
+- Starter Plan: 200 requests per minute (RPM)
+- Growth Plan: 600 requests per minute
+- Enterprise Plan: Custom limits up to 5,000 RPM
 
-Timeout Errors:
-If API response time exceeds 30 seconds:
-- Check network latency.
-- Confirm server status on status page.
-- Retry request.
+When rate limit is hit, the response includes headers:
+  X-RateLimit-Limit: 600
+  X-RateLimit-Remaining: 0
+  X-RateLimit-Reset: <Unix timestamp>
+
+Best practices to handle rate limits:
+1. Implement exponential backoff with jitter:
+   - First retry: wait 1 second
+   - Second retry: wait 2 seconds
+   - Third retry: wait 4 seconds (up to a maximum of 32 seconds)
+2. Cache GET responses locally where data freshness allows
+3. Batch multiple operations into a single API call using the /batch endpoint
+4. Monitor your usage via the API Dashboard to avoid hitting limits proactively
+5. Request a rate limit increase through the Enterprise upgrade or API quota request form
+
+HTTP 404 — Not Found
+---------------------
+Returned when the requested resource (campaign, ad group, creative) does not exist or the URL is incorrect.
+
+Resolution:
+- Double-check the resource ID in your request
+- Confirm the resource was not deleted through another process
+- Verify you are pointing to the correct environment (sandbox vs. production)
+- Ensure the API base URL is: https://api.campaignmanager.io/v2/
+
+HTTP 504 — Gateway Timeout
+---------------------------
+The upstream service did not respond within the timeout window (30 seconds).
+
+Resolution:
+- Check service status for ongoing incidents
+- Reduce the complexity of your query (e.g., shorten date ranges in reporting requests)
+- Retry with smaller payload sizes
+- For export jobs, use the asynchronous job API: POST /v2/jobs/export instead of synchronous endpoints
+
+=======================================================
+SECTION 2: AUTHENTICATION & API KEYS
+=======================================================
+
+API Key Types:
+- Read-only keys: Can only retrieve data (GET requests)
+- Read-write keys: Full CRUD operations on campaigns
+- Admin keys: Access to billing, user management, and account settings
+
+Rotating API Keys:
+1. Go to Settings > Developer > API Keys
+2. Click "Generate New Key"
+3. Update all integrations with the new key before deleting old key
+4. Old key remains valid for 24 hours after new key generation to allow graceful rotation
+
+OAuth 2.0 Integration:
+- Supported grant types: Authorization Code, Client Credentials
+- Scopes available: campaigns:read, campaigns:write, analytics:read, billing:read
+- Token endpoint: https://auth.campaignmanager.io/oauth/token
+
+=======================================================
+SECTION 3: WEBHOOK TROUBLESHOOTING
+=======================================================
+
+Webhooks not firing:
+- Verify the webhook URL is publicly accessible (not localhost)
+- Check the webhook secret signature: requests include X-CM-Signature header for validation
+- Ensure your endpoint responds with HTTP 200 within 5 seconds; otherwise the webhook is marked failed
+- Failed webhooks are retried up to 5 times with exponential backoff (1, 2, 4, 8, 16 minutes)
+- Review delivery logs at Settings > Webhooks > Delivery History
+
+=======================================================
+SECTION 4: SDK TROUBLESHOOTING
+=======================================================
+
+Official SDKs available:
+- Python: pip install campaignmanager-sdk
+- Node.js: npm install @campaignmanager/sdk
+- Java: Available on Maven Central
+
+Common SDK errors:
+- ConnectionError: Check firewall rules and that api.campaignmanager.io is reachable on port 443
+- SSLError: Ensure your SSL certificates are up to date (update certifi package in Python)
+- TimeoutError: Increase client timeout from default 30s using sdk.set_timeout(60)
