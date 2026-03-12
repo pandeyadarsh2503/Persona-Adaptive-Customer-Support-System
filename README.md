@@ -36,6 +36,7 @@ pip install -r requirements.txt
 ### 2. Configure API Key
 ```powershell
 copy .env.example .env
+Kindly please add your gemini API key to run this project.
 # Edit .env: GOOGLE_API_KEY=your_google_api_key_here
 # Get a free key at https://aistudio.google.com/
 ```
